@@ -347,7 +347,7 @@ local t = Def.ActorFrame {
 		if not GAMESTATE:IsCourseMode() then
 			if ThemePrefs.Get("KeyboardFeatures") then
 				-- Only display this option if keyboard features are enabled
-				table.insert(wheel_options, {"WhereforeArtThou", "SongSearch"})
+				-- table.insert(wheel_options, {"WhereforeArtThou", "SongSearch"})
 			end
 		end
 
