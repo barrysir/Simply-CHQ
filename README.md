@@ -1,4 +1,8 @@
-# Simply Love (StepMania 5)
+# Simply CHQ (StepMania 5)
+
+## Note for CHQ
+
+This is the modified version of Simply Love that runs at CHQ. This branch will be rebased whenever Simply Love is upgraded, so that modifications are easily found at the top of the commit list.
 
 ![Arrow Logo](https://i.imgur.com/oZmxyGo.png)
 
