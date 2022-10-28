@@ -29,13 +29,15 @@ local af = Def.ActorFrame{
 		if fail then
 			-- Let's fail the bots as well.
 			for player in ivalues( GAMESTATE:GetEnabledPlayers() ) do
-				-- local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(player)
-				-- pss:FailPlayer()
-
-				-- instead of failing, disqualify the player
-				-- disqualify the player by adding a disqualification mod
-				local playeroptions = GetPlayerState(player):GetCurrentPlayerOptions()
-				playeroptions:Little(true) -- I don't even know what this mod does
+				if SL.Global.GameMode=="Casual" then
+					local pss = STATSMAN:GetCurStageStats():GetPlayerStageStats(player)
+					pss:FailPlayer()
+				else
+					-- instead of failing, disqualify the player
+					-- disqualify the player by adding a disqualification mod
+					local playeroptions = GetPlayerState(player):GetCurrentPlayerOptions()
+					playeroptions:Little(true) -- I don't even know what this mod does
+				end
 			end
 		end
 	end,
