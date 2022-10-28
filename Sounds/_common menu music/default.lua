@@ -32,4 +32,10 @@ if PREFSMAN:GetPreference("EasterEggs") and style ~= "Thonk" then
 	if MonthOfYear()==11 then file = "HolidayCheer" end
 end
 
+-- Friday...
+minuteOfDay = Hour()*60 + Minute()
+if Weekday()==5 and minuteOfDay>=12*60+4*60+20 then
+	file = "FridayNight"
+end
+
 return THEME:GetPathS("", "_common menu music/" .. file)
