@@ -35,7 +35,7 @@ local af = Def.ActorFrame{
 				else
 					-- instead of failing, disqualify the player
 					-- disqualify the player by adding a disqualification mod
-					local playeroptions = GetPlayerState(player):GetCurrentPlayerOptions()
+					local playeroptions = GAMESTATE:GetPlayerState(player):GetCurrentPlayerOptions()
 					playeroptions:Little(true) -- I don't even know what this mod does
 				end
 			end
