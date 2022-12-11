@@ -222,6 +222,11 @@ GetAvatarPath = function(profileDirectory, displayName)
 		("/Appearance/Avatars/%s"):format(displayName)
 	}
 
+	-- have to run GetDirListing to pre-detect file from memory card
+	if profileDirectory:find('/@mc', 1, true) == 1 then
+		FILEMAN:GetDirListing(profileDirectory)
+	end
+
 	for _, path in ipairs(paths) do
 		for _, extension in ipairs(extensions) do
 			local avatar_path = ("%s.%s"):format(path, extension)
