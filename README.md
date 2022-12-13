@@ -1,11 +1,12 @@
-# Simply CHQ (StepMania 5)
+# Simply CHQ
 
-## Note for CHQ
+This is the modified version of Simply Love that runs at CHQ. It contains some arcade-specific tweaks and features.
 
-This is the modified version of Simply Love that runs at CHQ. This branch will be rebased whenever Simply Love is upgraded, so that modifications are easily found at the top of the commit list.
+Normal readme below:
+
+# Simply Love (StepMania 5)
 
 ![Arrow Logo](https://i.imgur.com/oZmxyGo.png)
-
 
 ## About
 
