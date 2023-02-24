@@ -2,6 +2,8 @@
 
 This is the modified version of Simply Love that runs at CHQ. It contains some arcade-specific tweaks and features.
 
+As we have switched to ITGMania this is running off Simply Love's [`itgmania`](https://github.com/Simply-Love/Simply-Love-SM5/tree/itgmania) branch.
+
 Normal readme below:
 
 # Simply Love (StepMania 5)
