@@ -38,4 +38,9 @@ if Weekday()==5 and minuteOfDay>=12*60+4*60+20 then
 	file = "FridayNight"
 end
 
+-- vocaloid appreciation day
+if MonthOfYear()==2 and (DayOfMonth() >= 9 and DayOfMonth() <= 10) then 
+	file = "Love is war verse"
+end
+
 return THEME:GetPathS("", "_common menu music/" .. file)
