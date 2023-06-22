@@ -35,7 +35,7 @@ for controller=1,2 do
 	-- Iterate through all potential panes, and only add the non-nil ones to the
 	-- list of panes we want to consider.
 	for i=1,num_panes do
-
+		  
 		local pane = af:GetChild("Panes"):GetChild( ("Pane%i_SideP%i"):format(i, controller) )
 
 		if pane ~= nil then
@@ -61,8 +61,12 @@ for controller=1,2 do
 				pane:visible(i == p)
 				active_pane[controller] = p
 			end
-
-		 	table.insert(panes[controller], pane)
+			
+			-- Don't display the global Groovestats leaderboard, to emphasize local leaderboards more
+			local shouldDisplay = (i ~= 8)
+			if shouldDisplay then
+		 		table.insert(panes[controller], pane)
+			end
 		end
 	end
 end
