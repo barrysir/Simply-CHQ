@@ -10,6 +10,12 @@ local pane_height = 60
 
 local text_zoom = WideScale(0.8, 0.9)
 
+-- Enable showing Groovestats or local machine leaderboards.
+local enable_groovestats = false
+local CustomIsServiceAllowed = function(condition)
+	return enable_groovestats and IsServiceAllowed(condition)
+end
+
 -- -----------------------------------------------------------------------
 -- Convenience function to return the SongOrCourse and StepsOrTrail for a
 -- for a player.
@@ -240,8 +246,10 @@ af[#af+1] = RequestResponseActor(17, 50)..{
 	ChartParsedCommand=function(self)
 		local master = self:GetParent()
 
-		if not IsServiceAllowed(SL.GrooveStats.GetScores) then
-			if SL.GrooveStats.IsConnected then
+		if not CustomIsServiceAllowed(SL.GrooveStats.GetScores) then
+			-- don't show the "(Groovestats) Disabled" text when we have local leaderboards
+			-- cause it's confusing what it's supposed to mean. - barry
+			if enable_groovestats and SL.GrooveStats.IsConnected then
 				-- loadingText is made visible when requests complete.
 				-- If we disable the service from a previous request, surface it to the user here.
 				for i=1,2 do
@@ -429,7 +437,7 @@ for player in ivalues(PlayerNumber) do
 		SetCommand=function(self)
 			-- We overload this actor to work both for GrooveStats and also offline.
 			-- If we're connected, we let the ResponseProcessor set the text
-			if IsServiceAllowed(SL.GrooveStats.GetScores) then
+			if CustomIsServiceAllowed(SL.GrooveStats.GetScores) then
 				self:settext("----")
 			else
 				self:queuecommand("SetDefault")
@@ -454,7 +462,7 @@ for player in ivalues(PlayerNumber) do
 		SetCommand=function(self)
 			-- We overload this actor to work both for GrooveStats and also offline.
 			-- If we're connected, we let the ResponseProcessor set the text
-			if IsServiceAllowed(SL.GrooveStats.GetScores) then
+			if CustomIsServiceAllowed(SL.GrooveStats.GetScores) then
 				self:settext("??.??%")
 			else
 				self:queuecommand("SetDefault")
@@ -482,7 +490,7 @@ for player in ivalues(PlayerNumber) do
 		SetCommand=function(self)
 			-- We overload this actor to work both for GrooveStats and also offline.
 			-- If we're connected, we let the ResponseProcessor set the text
-			if IsServiceAllowed(SL.GrooveStats.GetScores) then
+			if CustomIsServiceAllowed(SL.GrooveStats.GetScores) then
 				self:settext("----")
 			else
 				self:queuecommand("SetDefault")
@@ -506,7 +514,7 @@ for player in ivalues(PlayerNumber) do
 		SetCommand=function(self)
 			-- We overload this actor to work both for GrooveStats and also offline.
 			-- If we're connected, we let the ResponseProcessor set the text
-			if IsServiceAllowed(SL.GrooveStats.GetScores) then
+			if CustomIsServiceAllowed(SL.GrooveStats.GetScores) then
 				self:settext("??.??%")
 			else
 				self:queuecommand("SetDefault")
@@ -548,7 +556,7 @@ for player in ivalues(PlayerNumber) do
 		end,
 		SetCommand=function(self)
 			-- Hide the difficulty number if we're connected.
-			if IsServiceAllowed(SL.GrooveStats.GetScores) then
+			if CustomIsServiceAllowed(SL.GrooveStats.GetScores) then
 				self:visible(false)
 			end
 
@@ -572,7 +580,7 @@ for player in ivalues(PlayerNumber) do
 				self:y(pos.row[i])
 			end,
 			OnCommand=function(self)
-				self:visible(IsServiceAllowed(SL.GrooveStats.GetScores))
+				self:visible(CustomIsServiceAllowed(SL.GrooveStats.GetScores))
 			end,
 			SetCommand=function(self)
 				self:settext("----")
@@ -588,7 +596,7 @@ for player in ivalues(PlayerNumber) do
 				self:y(pos.row[i])
 			end,
 			OnCommand=function(self)
-				self:visible(IsServiceAllowed(SL.GrooveStats.GetScores))
+				self:visible(CustomIsServiceAllowed(SL.GrooveStats.GetScores))
 			end,
 			SetCommand=function(self)
 				self:settext("??.??%")
