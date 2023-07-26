@@ -35,7 +35,7 @@ end
 
 -- Friday...
 minuteOfDay = Hour()*60 + Minute()
-if Weekday()==5 and minuteOfDay>=12*60+4*60+20 then
+if Weekday()==5 and minuteOfDay>=12*60+6*60 then
 	file = "FridayNight"
 end
 
