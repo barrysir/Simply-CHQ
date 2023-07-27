@@ -16,7 +16,7 @@ local af = Def.ActorFrame{
 		local preferred_song = GAMESTATE:GetPreferredSong()
 		local current_song = GAMESTATE:GetCurrentSong()
 		if preferred_song == nil and current_song == nil then
-			local songtext = "Valex's Magical 4-Arrow Adventure 10/Barracuda"
+			local songtext = "Notice Me Benpai/24K Magic (PrototypeRaptor Remix)"
 			local new_song = SONGMAN:FindSong(songtext)
 			if new_song == nil then
 				Warn("Tried to set preferred song but couldn't find it in the song listing, you have a bug: " .. songtext)
