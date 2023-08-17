@@ -48,4 +48,6 @@ if MonthOfYear()==6 and DayOfMonth()==27 then
 	file = "zenith"
 end
 
+file = "kyukurarin"
+
 return THEME:GetPathS("", "_common menu music/" .. file)
