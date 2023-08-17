@@ -49,5 +49,8 @@ if MonthOfYear()==6 and DayOfMonth()==27 then
 end
 
 file = "kyukurarin"
+if minuteOfDay>=12*60+9*60 then
+	file = "cruel_angels_thesis"
+end
 
 return THEME:GetPathS("", "_common menu music/" .. file)
