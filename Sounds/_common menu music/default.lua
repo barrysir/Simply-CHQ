@@ -48,4 +48,9 @@ if MonthOfYear()==6 and DayOfMonth()==27 then
 	file = "zenith"
 end
 
+-- Monthly rotating music: September
+if MonthOfYear()==8 then
+	file = "souzou"
+end
+
 return THEME:GetPathS("", "_common menu music/" .. file)
