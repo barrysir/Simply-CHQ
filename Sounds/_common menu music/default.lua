@@ -52,6 +52,11 @@ end
 -- Monthly rotating music: September
 if MonthOfYear()==8 then
 	file = "souzou"
+
+	-- 9/9 - Cirno Day
+	if DayOfMonth()==9 then
+		file = "japanese_goblin"
+	end
 end
 
 return THEME:GetPathS("", "_common menu music/" .. file)
