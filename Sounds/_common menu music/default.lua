@@ -58,4 +58,9 @@ if MonthOfYear()==8 then
 	end
 end
 
+-- Monthly rotating music: October
+if MonthOfYear()==9 then
+	file = "blue_archive"
+end
+
 return THEME:GetPathS("", "_common menu music/" .. file)
