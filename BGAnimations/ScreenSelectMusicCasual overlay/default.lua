@@ -90,6 +90,10 @@ local t = Def.ActorFrame {
 		-- It should be safe to enable input for players now
 		self:queuecommand("EnableInput")
 	end,
+	ReturnFromSortMenuCommand=function(self)
+		-- Callback for the sort menu to reenable our custom input handler when it exits.
+		SCREENMAN:GetTopScreen():AddInputCallback( Input.Handler )
+	end,
 	CodeMessageCommand=function(self, params)
 		-- I'm using Metrics-based code detection because the engine is already good at handling
 		-- simultaneous button presses (CancelSingleSong when ThreeKeyNavigation=1),
@@ -113,6 +117,14 @@ local t = Def.ActorFrame {
 			if Input.WheelWithFocus ~= OptionsWheel then return end
 			-- otherwise, run the function to cancel this single song choice
 			Input.CancelSongChoice()
+		end
+		if params.Name == "SortList" then
+			-- Casual mode sets its own input handler which we need to disable
+			-- (and then reenable when coming back from the menu.)
+			SCREENMAN:GetTopScreen():RemoveInputCallback( Input.Handler )
+
+			-- Turn on the sort menu.
+			SCREENMAN:GetTopScreen():GetChild("Overlay"):queuecommand("DirectInputToSortMenu") 
 		end
 	end,
 
@@ -146,6 +158,8 @@ local t = Def.ActorFrame {
 	GroupWheel:create_actors( "GroupWheel", row.how_many * col.how_many, group_mt, 0, 0, true),
 
 	LoadActor("FooterHelpText.lua"),
+
+	LoadActor("./SortMenu/default.lua"),
 }
 
 t[#t+1] = LoadActor("SoundEffects.lua")

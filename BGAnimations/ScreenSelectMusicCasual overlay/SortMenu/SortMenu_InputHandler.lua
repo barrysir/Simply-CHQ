@@ -36,11 +36,9 @@ local input = function(event)
 				-- Reload the SortMenu's available options and queue "DirectInputToEngine"
 				-- to return input from Lua back to the engine and hide the SortMenu from view
 				sortmenu:playcommand("AssessAvailableChoices"):queuecommand("DirectInputToEngine")
-				-- the player is switching to casual mode which uses a different SelectMusic screen
-				if focus.change == "Casual" then
-					screen:SetNextScreenName("ScreenSelectMusicCasual")
-					screen:StartTransitioningScreen("SM_GoToNextScreen")
-				end
+				-- the player is switching to normal mode which uses a different SelectMusic screen
+				screen:SetNextScreenName("ScreenSelectMusic")
+				screen:StartTransitioningScreen("SM_GoToNextScreen")
 				-- the player wants to change styles, for example from single to double
 			elseif focus.kind == "ChangeStyle" then
 				-- If the MenuTimer is in effect, make sure to grab its current
@@ -95,6 +93,7 @@ local input = function(event)
 			end
 
 		elseif event.GameButton == "Back" or event.GameButton == "Select" then
+			overlay:queuecommand("ReturnFromSortMenu")
 			overlay:queuecommand("DirectInputToEngine")
 		end
 	end
