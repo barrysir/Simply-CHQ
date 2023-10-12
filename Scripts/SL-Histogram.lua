@@ -14,9 +14,17 @@ local function gen_vertices(player, width, height, desaturation)
 	
 	if not Steps or not Song then return {} end
 
+	-- barry note: This function originally makes a call to ParseChartInfo;
+	-- I've commented this out to be able to control when density graphs are rendered 
+	-- for purposes of USB custom density graphs: so I can have density graphs not load on music select
+	-- but have them load in gameplay.
+	-- However that now means you have to remember to call ParseChartInfo() yourself before rendering a histogram.
+	-- Every part of the code happens to do this anyways.
+	-- This extra constraint might cause bugs to pop up when upgrading to newer versions of Simply Love.
+
 	-- This function does no work if we already have the data in SL.Streams cache.
-	local filename = Song:GetSongFilePath()
-	ParseChartInfo(Steps, pn, filename)
+	-- local filename = Song:GetSongFilePath()
+	-- ParseChartInfo(Steps, pn, filename)
 
 	PeakNPS = SL[pn].Streams.PeakNPS
 	NPSperMeasure = SL[pn].Streams.NPSperMeasure 

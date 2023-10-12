@@ -54,12 +54,19 @@ return Def.ActorFrame{
 		first_second = math.min(song:GetTimingData():GetElapsedTimeFromBeat(0), 0)
 		last_second = song:GetLastSecond()
 
+		local steps = GAMESTATE:GetCurrentSteps(player)
+		local filename = GAMESTATE:GetCurrentSong():GetSongFilePath()
+		ParseChartInfo(steps, pn, filename)
+
 		self:queuecommand("Size")
 	end,
 
 	Def.Quad{ InitCommand=function(self) self:setsize(width, height):diffuse(color("#1E282F")):align(0,1) end },
 
 	NPS_Histogram(player, width, height)..{
+		PeakNPSUpdatedMessageCommand=function(self)
+			self:queuecommand("Size") 
+		end,
 		SizeCommand=function(self)
 			self:zoomtoheight(1)
 
