@@ -15,7 +15,9 @@ local function gen_vertices(player, width, height, desaturation)
 	if not Steps or not Song then return {} end
 
 	-- This function does no work if we already have the data in SL.Streams cache.
-	ParseChartInfo(Steps, pn)
+	local filename = Song:GetSongFilePath()
+	ParseChartInfo(Steps, pn, filename)
+
 	PeakNPS = SL[pn].Streams.PeakNPS
 	NPSperMeasure = SL[pn].Streams.NPSperMeasure 
 	-- store the PeakNPS in GAMESTATE:Env()[pn.."PeakNPS"] in case both players are joined
@@ -102,7 +104,7 @@ local function gen_vertices(player, width, height, desaturation)
 			verts[#verts+1] = {{width, 0, 0}, blue}
 		end
 	end
-
+	
 	return verts
 end
 
