@@ -1,6 +1,5 @@
-local GetSimfileString = function(steps)
+local GetSimfileString = function(filename)
 	-- steps:GetFilename() returns the filename of the sm or ssc file, including path, as it is stored in SM's cache
-	local filename = steps:GetFilename()
 	if not filename or filename == "" then return end
 
 	-- get the file extension like "sm" or "SM" or "ssc" or "SSC" or "sSc" or etc.
@@ -755,9 +754,15 @@ local MaybeCopyFromOppositePlayer = function(pn, filename, stepsType, difficulty
 	end
 end
 		
-ParseChartInfo = function(steps, pn)
+ParseChartInfo = function(steps, pn, fn)
 	-- The filename for these steps in the StepMania cache 
-	local filename = steps:GetFilename()
+	local filename
+	if fn == nil then
+		filename = steps:GetFilename()
+	else
+		filename = fn
+	end
+
 	-- StepsType, a string like "dance-single" or "pump-double"
 	local stepsType = ToEnumShortString( steps:GetStepsType() ):gsub("_", "-"):lower()
 	-- Difficulty, a string like "Beginner" or "Challenge"
@@ -775,7 +780,7 @@ ParseChartInfo = function(steps, pn)
 			SL[pn].Streams.StepsType ~= stepsType or
 			SL[pn].Streams.Difficulty ~= difficulty or
 			SL[pn].Streams.Description ~= description) then
-		local simfileString, fileType = GetSimfileString( steps )
+		local simfileString, fileType = GetSimfileString( filename )
 		local parsed = false
 
 		if simfileString then
