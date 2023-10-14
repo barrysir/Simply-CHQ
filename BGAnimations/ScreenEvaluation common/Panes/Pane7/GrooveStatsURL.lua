@@ -12,6 +12,7 @@ local rate = tostring(SL.Global.ActiveModifiers.MusicRate * 100):gsub("%.", "")
 local steps = GAMESTATE:GetCurrentSteps(player)
 
 -- ParseChartInfo will do no work if the data already exists in the SL.Streams Cache.
+Warn("ParseChartInfo being called from GrooveStatsURL.lua")
 ParseChartInfo(steps, pn)
 local hash = SL[pn].Streams.Hash
 
