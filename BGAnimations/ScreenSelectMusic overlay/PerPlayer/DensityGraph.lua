@@ -80,6 +80,7 @@ af[#af+1] = Def.ActorFrame{
 		local steps = GAMESTATE:GetCurrentSteps(player)
 		if steps then
 			MESSAGEMAN:Broadcast(pn.."ChartParsing")
+			Warn("ParseChartInfo being called from DensityGraph.lua")
 			ParseChartInfo(steps, pn)
 			self:queuecommand("Show")
 		end

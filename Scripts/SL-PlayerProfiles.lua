@@ -225,6 +225,9 @@ GetAvatarPath = function(profileDirectory, displayName)
 		("/Appearance/Avatars/%s"):format(displayName)
 	}
 
+	local header = "GetAvatarPath | "
+	Warn(header .. "looking through profile directory " .. profileDirectory)
+
 	-- have to run GetDirListing to pre-detect file from memory card
 	if profileDirectory:find('/@mc', 1, true) == 1 then
 		FILEMAN:GetDirListing(profileDirectory)
@@ -238,7 +241,10 @@ GetAvatarPath = function(profileDirectory, displayName)
 			and ActorUtil.GetFileType(avatar_path) == "FileType_Bitmap"
 			then
 				-- return the first valid avatar path that is found
+				Warn(header .. "checking path " .. avatar_path .. ": found, exiting")
 				return avatar_path
+			else
+				Warn(header .. "checking path " .. avatar_path .. ": not found")
 			end
 		end
 	end
@@ -263,5 +269,6 @@ GetPlayerAvatarPath = function(player)
 	local dir  = PROFILEMAN:GetProfileDir(profile_slot[player])
 	local name = PROFILEMAN:GetProfile(player):GetDisplayName()
 
+	Warn("GetPlayerAvatarPath( " .. player .. ") | directory " .. dir .. ", name " .. name)
 	return GetAvatarPath(dir, name)
 end

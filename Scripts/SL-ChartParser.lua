@@ -760,12 +760,15 @@ end
 		
 ParseChartInfo = function(steps, pn, fn)
 	-- The filename for these steps in the StepMania cache 
+	local header = "ParseChartInfo(" .. pn .. ") | "
+
 	local filename
 	if fn == nil then
 		filename = steps:GetFilename()
 	else
 		filename = fn
 	end
+	Warn(header .. " will load file " .. filename)
 
 	-- StepsType, a string like "dance-single" or "pump-double"
 	local stepsType = ToEnumShortString( steps:GetStepsType() ):gsub("_", "-"):lower()
@@ -787,9 +790,26 @@ ParseChartInfo = function(steps, pn, fn)
 		local simfileString, fileType = GetSimfileString( filename )
 		local parsed = false
 
+		local length
+		if (simfileString == nil) then
+			length = 0
+		else
+			length = #simfileString
+		end
+
+		Warn(header .. "filename=" .. filename .. ", length=" .. tostring(length))
+
 		if simfileString then
 			-- Parse out just the contents of the notes
 			local chartString, BPMs = GetSimfileChartString(simfileString, stepsType, difficulty, description, fileType)
+			
+			if (chartString == nil) then
+				length = 0
+			else
+				length = #chartString
+			end
+
+			Warn(header .. "chart string length=" .. tostring(length))
 			if chartString ~= nil and BPMs ~= nil then
 				-- We use 16 characters for the V3 GrooveStats hash.
 				local Hash = BinaryToHex(CRYPTMAN:SHA1String(chartString..BPMs)):sub(1, 16)
@@ -845,5 +865,13 @@ ParseChartInfo = function(steps, pn, fn)
 			SL[pn].Streams.Difficulty = difficulty
 			SL[pn].Streams.Description = description
 		end
+	else
+		Warn(
+			header .. " file parsing skipped, already exists in buffer"
+			.. ", filename=" .. SL[pn].Streams.Filename
+			.. ", stepsType=" .. SL[pn].Streams.StepsType
+			.. ", difficulty=" .. SL[pn].Streams.Difficulty
+			.. ", description=" .. SL[pn].Streams.Description
+		)
 	end
 end

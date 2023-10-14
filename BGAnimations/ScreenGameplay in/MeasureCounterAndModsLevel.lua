@@ -24,6 +24,7 @@ return function(SongNumberInCourse)
 			-- This will parse out and set all the required info for the chart in the SL.Streams cache,
 			-- The function will only do work iff we're parsing a chart different than what's in the cache.
 			local filename = GAMESTATE:GetCurrentSong():GetSongFilePath()
+			Warn("ParseChartInfo being called from MeasureCountAndModsLevel.lua")
 			ParseChartInfo(steps, pn, filename)
 
 			-- Set the actual stream information for the player based on their selected notes threshold.

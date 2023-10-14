@@ -1,6 +1,9 @@
 local player = ...
 local pn = ToEnumShortString(player)
 
+Warn("UpperNPSGraph being rendered for player " .. pn)
+local header = "UpperNPSGraph " .. pn .. " | "
+
 if not SL[pn].ActiveModifiers.NPSGraphAtTop
 or SL.Global.GameMode == "Casual"
 then
@@ -56,6 +59,8 @@ return Def.ActorFrame{
 
 		local steps = GAMESTATE:GetCurrentSteps(player)
 		local filename = GAMESTATE:GetCurrentSong():GetSongFilePath()
+		Warn(header .. "Steps info: meter=" .. steps:GetMeter() .. ", difficulty=" .. steps:GetDifficulty() .. " , timing data=" .. dump(steps:GetTimingData():GetBPMs()))
+		Warn(header .. "ParseChartInfo being called from UpperNPSGraph.lua")
 		ParseChartInfo(steps, pn, filename)
 
 		self:queuecommand("Size")
@@ -73,6 +78,7 @@ return Def.ActorFrame{
 			if #GAMESTATE:GetHumanPlayers()==2 and SL.P1.ActiveModifiers.NPSGraphAtTop and SL.P2.ActiveModifiers.NPSGraphAtTop then
 				local my_peak = GAMESTATE:Env()[pn.."PeakNPS"]
 				local their_peak = GAMESTATE:Env()[ToEnumShortString(OtherPlayer[player]).."PeakNPS"]
+				Warn(header .. " my_peak=" .. my_peak .. ", their_peak=" .. their_peak)
 
 				if my_peak < their_peak then
 					self:zoomtoheight(my_peak/their_peak)

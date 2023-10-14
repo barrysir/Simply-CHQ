@@ -14,6 +14,8 @@ local function gen_vertices(player, width, height, desaturation)
 	
 	if not Steps or not Song then return {} end
 
+	local header = "gen_vertices " .. pn .. " | "
+	Warn(header .. "called")
 	-- barry note: This function originally makes a call to ParseChartInfo;
 	-- I've commented this out to be able to control when density graphs are rendered 
 	-- for purposes of USB custom density graphs: so I can have density graphs not load on music select
@@ -128,6 +130,7 @@ end
 
 function NPS_Histogram(player, width, height, desaturation)
 	local pn = ToEnumShortString(player)
+	local header = "NPS_Histogram " .. pn .. " | "
 	local amv = Def.ActorMultiVertex{
 		InitCommand=function(self)
 			self:SetDrawState({Mode="DrawMode_QuadStrip"})
@@ -136,10 +139,12 @@ function NPS_Histogram(player, width, height, desaturation)
 			self:queuecommand("Redraw")
 		end,
 		RedrawCommand=function(self)
+			Warn(header .. "RedrawCommand called")
 			-- we've reached a new song, so reset the vertices for the density graph
 			-- this will occur at the start of each new song in CourseMode
 			-- and at the start of "normal" gameplay
 			local verts = gen_vertices(player, width, height, desaturation)
+			Warn(header .. "Number of vertices " .. #verts)
 			self:SetNumVertices(#verts):SetVertices(verts)
 		end
 	}
