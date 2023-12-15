@@ -33,9 +33,13 @@ if PREFSMAN:GetPreference("EasterEggs") and style ~= "Thonk" then
 	if MonthOfYear()==11 then file = "HolidayCheer" end
 end
 
+file = "Express 0805"
+
 -- Friday...
-minuteOfDay = Hour()*60 + Minute()
-if Weekday()==5 and minuteOfDay>=12*60+6*60 then
+local minuteOfDay = Hour()*60 + Minute()
+local itIsFriday = true -- Weekday() == 5
+local gamerTime = (minuteOfDay >= 12*60+6*60)
+if itIsFriday and gamerTime then
 	file = "FridayNight"
 end
 
@@ -62,6 +66,17 @@ end
 -- Monthly rotating music: October
 if MonthOfYear()==9 then
 	file = "blue_archive"
+end
+
+-- Music for December
+if MonthOfYear()==11 then
+	if itIsFriday then
+		if minuteOfDay >= 12*60+7*60 then
+			file = "jingle_bells"
+		elseif minuteOfDay >= 12*60+4*60 then
+			file = "kyominai_chorus"
+		end
+	end
 end
 
 return THEME:GetPathS("", "_common menu music/" .. file)
