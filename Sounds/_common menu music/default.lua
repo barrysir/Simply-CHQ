@@ -79,4 +79,9 @@ if MonthOfYear()==11 then
 	end
 end
 
+-- Music for January
+if MonthOfYear()==0 then
+	file = "Tear Rain"
+end
+
 return THEME:GetPathS("", "_common menu music/" .. file)
