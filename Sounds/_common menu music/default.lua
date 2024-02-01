@@ -84,4 +84,8 @@ if MonthOfYear()==0 then
 	file = "Tear Rain"
 end
 
+if MonthOfYear()==1 then
+	file = "philosophers_polar_north"
+end
+
 return THEME:GetPathS("", "_common menu music/" .. file)
