@@ -43,11 +43,6 @@ if itIsFriday and gamerTime then
 	file = "FridayNight"
 end
 
--- vocaloid appreciation day
-if MonthOfYear()==2 and (DayOfMonth() >= 9 and DayOfMonth() <= 10) then 
-	file = "Love is war verse"
-end
-
 -- osu day
 if MonthOfYear()==6 and DayOfMonth()==27 then
 	file = "zenith"
@@ -86,6 +81,11 @@ end
 
 if MonthOfYear()==1 then
 	file = "philosophers_polar_north"
+end
+
+-- April, but not April Fool's Day
+if MonthOfYear()==3 and DayOfMonth() >= 2 then
+	file = "love is war"
 end
 
 return THEME:GetPathS("", "_common menu music/" .. file)
