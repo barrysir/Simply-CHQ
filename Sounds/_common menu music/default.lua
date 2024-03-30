@@ -88,4 +88,10 @@ if MonthOfYear()==3 and DayOfMonth() >= 2 then
 	file = "love is war"
 end
 
+-- May
+if MonthOfYear()==4 then
+	file = "fof"
+end
+
+
 return THEME:GetPathS("", "_common menu music/" .. file)
