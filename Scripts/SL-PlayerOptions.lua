@@ -173,34 +173,6 @@ local Overrides = {
 					}
 				}
 
-				-- additional OutFox stock note skins
-				if IsOutFox() then
-					local stockOutfox = {
-						dance = {
-							"defaultsm5", "delta2019", "outfox-itg", "outfox-note",
-							"paw"
-						},
-						pump = {
-							"defaultsm5", "pawprint", "rhythmsm5"
-						},
-						global = {
-							"broadhead", "crystal", "crystal4k", "exact3d", "fourv2",
-							"glider-note", "paws", "shadowtip"
-						}
-					}
-
-					if stockOutfox[game] then
-						for name in ivalues(stockOutfox[game]) do
-							table.insert(stock[game], name)
-						end
-					end
-					if stock[game] then
-						for name in ivalues(stockOutfox.global) do
-							table.insert(stock[game], name)
-						end
-					end
-				end
-
 				if stock[game] then
 					for stock_noteskin in ivalues(stock[game]) do
 						for i=1,#all do
@@ -427,10 +399,10 @@ local Overrides = {
 			end
 
 			if SL.Global.GameMode == "FA+" then
-				return { "ShowEXScore" }
+				return { "ShowExScore" }
 			end
 
-			return { "ShowFaPlusWindow", "ShowEXScore", "ShowFaPlusPane" }
+			return { "ShowFaPlusWindow", "ShowExScore", "ShowFaPlusPane" }
 		end,
 		LoadSelections = function(self, list, pn)
 			local mods = SL[ToEnumShortString(pn)].ActiveModifiers
@@ -440,12 +412,12 @@ local Overrides = {
 			end
 
 			if SL.Global.GameMode == "FA+" then
-				list[1] = mods.ShowEXScore or false
+				list[1] = mods.ShowExScore or false
 				return list
 			end		
 
 			list[1] = mods.ShowFaPlusWindow or false
-			list[2] = mods.ShowEXScore or false
+			list[2] = mods.ShowExScore or false
 			list[3] = mods.ShowFaPlusPane and true
 			return list
 		end,
@@ -455,7 +427,7 @@ local Overrides = {
 
 			if ThemePrefs.Get("EnableTournamentMode") then
 				mods.ShowFaPlusWindow = list[1]
-				mods.ShowEXScore = ThemePrefs.Get("ScoringSystem") == "EX"
+				mods.ShowExScore = ThemePrefs.Get("ScoringSystem") == "EX"
 				mods.ShowFaPlusPane = true
 				-- Default to FA+ pane in Tournament Mode
 				sl_pn.EvalPanePrimary = 2
@@ -465,14 +437,14 @@ local Overrides = {
 			if SL.Global.GameMode == "FA+" then
 				-- always disable in FA+ mode since it's handled engine side.
 				mods.ShowFaPlusWindow = false
-				mods.ShowEXScore = list[1]
+				mods.ShowExScore = list[1]
 				-- the main score pane is already the FA+ pane
 				mods.ShowFaPlusPane = false
 				return
 			end
 
 			mods.ShowFaPlusWindow = list[1]
-			mods.ShowEXScore = list[2]
+			mods.ShowExScore = list[2]
 			mods.ShowFaPlusPane = list[3]
 			-- Default to FA+ pane if either options are active.
 			sl_pn.EvalPanePrimary = ((list[1] or list[2]) and list[3]) and 2 or 1
@@ -521,12 +493,8 @@ local Overrides = {
 			local IsUltraWide = (GetScreenAspectRatio() > 21/9)
 			local mpn = GAMESTATE:GetMasterPlayerNumber()
 
-			-- Never available in double
-			if style and style:GetName() == "double"
-			-- In 4:3 versus mode
-			or (not IsUsingWideScreen() and style and style:GetName() == "versus")
-			-- if the notefield takes up more than half the screen width
-			or (notefieldwidth and notefieldwidth > _screen.w/2)
+			-- Not in 4:3 versus mode
+			if (not IsUsingWideScreen() and style and style:GetName() == "versus")
 			-- if the notefield is centered with 4:3 aspect ratio
 			or (mpn and GetNotefieldX(mpn) == _screen.cx and not IsUsingWideScreen())
 			-- Tournament Mode always enforces whether to display/hide step stats so remove that as an option.
@@ -606,9 +574,36 @@ local Overrides = {
 			return vals
 		end
 	},
+	TiltMultiplier = {
+		Choices = function()
+			local first	= 1
+			local last 	= 3
+			local step 	= 0.5
+
+			return stringify(range(first, last, step), "%g")
+		end,
+		LoadSelections = function(self, list, pn)
+			local mods =SL[ToEnumShortString(pn)].ActiveModifiers
+			local tiltMultiplier = ("%g"):format(mods.TiltMultiplier)
+			local i = FindInTable(tiltMultiplier, self.Choices) or 1
+			list[i] = true
+			return list
+		end,
+		SaveSelections = function(self, list, pn)
+			local mods =SL[ToEnumShortString(pn)].ActiveModifiers
+
+			for i=1,#self.Choices do
+				if list[i] then
+					mods.TiltMultiplier = tonumber( self.Choices[i] )
+				end
+			end
+		end
+	},
+	-------------------------------------------------------------------------
 	ErrorBar = {
 		Values = { "None", "Colorful", "Monochrome", "Text" },
-	},-------------------------------------------------------------------------
+	},
+	-------------------------------------------------------------------------
 	ErrorBarTrim = {
 		Values = { "Off", "Great", "Excellent" },
 		Choices = function()

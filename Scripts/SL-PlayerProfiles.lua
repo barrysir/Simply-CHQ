@@ -54,6 +54,7 @@ local permitted_profile_settings = {
 	Pacemaker            = "boolean",
 	NPSGraphAtTop        = "boolean",
 	JudgmentTilt         = "boolean",
+	TiltMultiplier       = "number",
 	ColumnCues           = "boolean",
 	DisplayScorebox      = "boolean",
 
@@ -63,7 +64,7 @@ local permitted_profile_settings = {
 	ErrorBarTrim         = "string",
 
 	ShowFaPlusWindow     = "boolean",
-	ShowEXScore          = "boolean",
+	ShowExScore          = "boolean",
 	ShowFaPlusPane       = "boolean",
 
 	HideEarlyDecentWayOffJudgments = "boolean",
@@ -100,7 +101,6 @@ end
 
 -- function assigned to "CustomLoadFunction" under [Profile] in metrics.ini
 LoadProfileCustom = function(profile, dir)
-
 	local path =  dir .. filename
 	local player, pn, filecontents
 
@@ -190,6 +190,7 @@ SaveProfileCustom = function(profile, dir)
 
 			IniFile.WriteFile( path, {[theme_name]=output} )
 
+			WriteGrooveStatsIni(player)
 			-- Write to the ITL file if we need to.
 			-- This is relevant for memory cards.
 			WriteItlFile(player)
