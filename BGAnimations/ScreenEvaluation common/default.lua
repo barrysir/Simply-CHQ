@@ -48,6 +48,9 @@ end
 -- code for triggering a screenshot and animating a "screenshot" texture
 t[#t+1] = LoadActor("./Shared/ScreenshotHandler.lua")
 
+-- code for immediately retrying the song that was just played
+t[#t+1] = LoadActor("./Shared/RestartHandler.lua")
+
 -- the title of the song and its graphical banner, if there is one
 t[#t+1] = LoadActor("./Shared/TitleAndBanner.lua")
 
