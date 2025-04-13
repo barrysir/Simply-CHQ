@@ -2,9 +2,50 @@
 
 This is the modified version of Simply Love that runs at CHQ. It contains some arcade-specific tweaks and features.
 
-As we have switched to ITGMania this is running off Simply Love's [`itgmania`](https://github.com/Simply-Love/Simply-Love-SM5/tree/itgmania) branch.
+## Custom Feature List
 
-Normal readme below:
+ * Monthly cycling menu music [Music Credits](#music-credits)
+ * Different menu game over music [Music Credits](#music-credits)
+ * Quitting a song early
+    * ITG Mode: allows you to continue the credit (Simply Love default behaviour is to fail out of the set), disqualifies your score from leaderboards
+    * Casual Mode: Quits out of the set (so arcade operators can exit out of Casual Mode easier)
+ * 727 detection on song results screen (not annoying)
+ * Hide groovestats leaderboard over displaying machine leaderboards
+    * Hide groovestats leaderboard panel in song results
+    * Display machine rather than Groovestats leaderboards in song select
+ * Switch between Casual and ITG mid-set
+ * USB: avatars (doesn't really work)
+ * USB Customs: density graph + measure counter (doesn't really work)
+
+### Music Credits
+
+<details>
+ <summary>Music Credits</summary>
+
+#### Game entry music
+ * **Default**: [ハチト - Express 0805](https://soundcloud.com/hatitoooo/express-0805)
+ * **January**: cYsmix feat. Emmy - Tear Rain
+ * **February**: ShibayanRecords - 賢者の極北 / The Philosopher’s Polar North
+ * **March**:
+ * **April**: supercell - 恋は戦争 / Love Is War (instrumental)
+ * **May**: ShibayanRecords - fof
+ * **June**:
+ * **August**: 
+ * **September**: Jin - 想像フォレスト / Imagination Forest (instrumental)
+ * **October**: Blue Archive OST (Mitsukiyo) - Midsummer Cat
+ * **November**: 
+ * **December**: Camellia feat. Nanahira - クリスマスなんて興味ないけど / I don't care about Christmas though (instrumental)
+
+#### Credits music
+ * In The Groove Credits Theme
+ * Ice Cube - It Was A Good Day (Radio Edit)
+ * The Game - A.I. With The Braids ft. Lil Wayne
+ * Ronaldhino Soccer 64 (Instrumental)
+
+</details>
+
+
+Normal readme below.
 
 # Simply Love (ITGmania)
 
